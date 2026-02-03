@@ -1,0 +1,23 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Log files
+*.log
+security_reports/
+
+# Environment variables
+.env
+
+# OS-specific files
+.DS_Store
+.thumbs.db
+
+# VS Code
+.vscode/
