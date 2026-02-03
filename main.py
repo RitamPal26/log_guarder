@@ -54,10 +54,18 @@ def generate_dashboard(ip_stats: dict, user_stats: dict, threshold: int, skipped
         if count > 0:
             ip_table.add_row(ip, count_display, status)
 
-    if not found_threat:
-        console.print("[green]No IP threats detected above threshold.[/green]")
-    else:
+    # if not found_threat:
+    #    console.print("[green]No IP threats detected above threshold.[/green]")
+    # else:
+    #    console.print(ip_table)
+
+    # NEW LOGIC:
+    if len(ip_stats) > 0:
         console.print(ip_table)
+        if not found_threat:
+             console.print("\n[green]✔ No active threats found above threshold.[/green]")
+    else:
+        console.print("[italic]No failed login attempts recorded.[/italic]")
 
     console.print("\n")
     user_table = Table(title=" Most Targeted Accounts", show_header=True, header_style="bold yellow")
