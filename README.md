@@ -7,8 +7,8 @@
 * **Stateful Analysis:** Tracks IP behavior over time to identify repeated failures, not just isolated events.
 * **Rich UI:** features a modern dashboard with color-coded alerts and summary tables.
 * **Dual Logging:** simultaneously alerts the console (for the user) and writes to `security_events.log` (for auditing).
-* **Zero Hardcoding:** Uses Regex with Named Groups for flexible parsing.
 * **Linux Native:** Designed to work seamlessly with standard Linux log formats.
+* **Resilient Parsing:** Robust handling of edge cases, including malformed lines and UI injection attempts.
 
 ## Installation
 
@@ -29,21 +29,54 @@
     pip install -r requirements.txt
     ```
 
+4.  **Generate Test Data:**
+    The repository does not ship with log files. Generate them using the included script:
+    ```bash
+    python3 samples/populate_logs.py
+    ```
+    *This will create `samples/test_auth.log` with dummy data.*
+
+
 ## Usage
 
-Run the utility by pointing it to a log file. You can use the provided sample data for testing.
+Run the utility by pointing it to a log file.
 
+### Standard Analysis
 ```bash
 python3 main.py samples/test_auth.log
 ```
 
-**Output:**
-The tool will stream the log analysis to your terminal. If an IP exceeds the failure threshold (default: 5), it will trigger a **[THREAT DETECTED]** alert.
+*Defaults: Threshold = 5 failures.*
 
-To run on actual Linux system logs (requires permissions):
+**Run on System Logs (Requires sudo):**
 
 ```bash
 sudo python3 main.py /var/log/auth.log
+```
+
+## Testing
+
+This project maintains **100% test coverage** using `pytest`. The test suite covers happy paths, edge cases (ghost users, injection attacks), and failure modes.
+
+To run the tests:
+
+```bash
+python3 -m pytest
+```
+
+## Building from Source (Binary)
+
+You can compile LogGuarder into a standalone Linux executable that requires no Python installation.
+
+1. **Build the binary:**
+```bash
+pyinstaller logguard.spec
+```
+
+
+2. **Run the executable:**
+```bash
+./dist/logguard samples/test_auth.log
 ```
 
 ## Design Choices & Architecture
@@ -74,10 +107,14 @@ I chose the **Rich** library over standard `print()` statements. Security tools 
 
 ```text
 log_guarder/
-├── samples/           # specific test data
+├── samples/           # Test data (normal & poisoned logs)
+├── tests/             # Pytest suite
 ├── parser/
 │   ├── engine.py      # Core parsing logic
 │   └── models.py      # Data structures
+├── dist/              # Compiled binary (after build)
 ├── main.py            # Entry point & CLI
+├── logguard.spec      # PyInstaller build config
 ├── requirements.txt   # Dependencies
 └── README.md          # Documentation
+```
