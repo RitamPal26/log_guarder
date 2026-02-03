@@ -21,3 +21,7 @@ security_reports/
 
 # VS Code
 .vscode/
+
+# dist and build directories
+dist/
+build/
