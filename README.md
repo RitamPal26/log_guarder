@@ -103,6 +103,9 @@ The tool uses a Hash Map (`collections.defaultdict`) to track failure counts. Th
 
 I chose the **Rich** library over standard `print()` statements. Color-coded alerts and structured tables allow operators to spot critical threats instantly, reducing "alert fatigue."
 
+### 5. Compiled Binary Distribution
+To adhere to the **Write Once, Run Anywhere** philosophy, the project includes a PyInstaller build, resulting binary bundles the Python interpreter and the Rich dependency.
+
 ## Project Structure
 
 ```text
