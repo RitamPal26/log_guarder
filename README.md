@@ -101,13 +101,13 @@ The tool uses a Hash Map (`collections.defaultdict`) to track failure counts. Th
 
 ### 4. User Experience (Rich Library)
 
-I chose the **Rich** library over standard `print()` statements. Security tools are often monitored by humans. Color-coded alerts and structured tables allow operators to spot critical threats instantly, reducing "alert fatigue."
+I chose the **Rich** library over standard `print()` statements. Color-coded alerts and structured tables allow operators to spot critical threats instantly, reducing "alert fatigue."
 
 ## Project Structure
 
 ```text
 log_guarder/
-├── samples/           # Test data (normal & poisoned logs)
+├── samples/           # Test data
 ├── tests/             # Pytest suite
 ├── parser/
 │   ├── engine.py      # Core parsing logic
